@@ -1,0 +1,12 @@
+{
+    "name": "bwc/component-log-processor",
+    "description": "Log Processing Component",
+    "require": {
+
+    },
+    "autoload": {
+        "psr-0": {
+            "Bwc\\LogProcessor": "src"
+        }
+    }
+}
