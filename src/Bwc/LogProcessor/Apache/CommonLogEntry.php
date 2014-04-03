@@ -2,6 +2,10 @@
 
 namespace Bwc\LogProcessor\Apache;
 
+/**
+ * Common Apache Log entry. Comments on each field show which symbol from Apache LogFormat should be assigned
+ * to it
+ */
 class CommonLogEntry
 {
     // %t

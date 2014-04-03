@@ -9,30 +9,40 @@ use Bwc\LogProcessor\LogReaderInterface;
 class TimeAwareLogProcessor extends LogProcessor
 {
     /**
-     * @var \DateTime
+     * @var int|null
      */
-    private $startDate;
+    private $startTime;
 
     /**
-     * @var \DateTime
+     * @var int|null
      */
-    private $endDate;
+    private $endTime;
 
     public function __construct(LogReaderInterface $reader, LogParserInterface $parser, \DateTime $startTime = null, \DateTime $endTime = null)
     {
         parent::__construct($reader, $parser);
-        $this->startDate = $startTime;
-        $this->endDate = $endTime;
+
+        if ($startTime) {
+            $this->startTime = $startTime->getTimestamp();
+        }
+        if ($endTime) {
+            $this->endTime = $endTime->getTimestamp();
+        }
     }
 
+    /**
+     * Checks whether entry time is within given time limits.
+     *
+     * @param CommonLogEntry $entry
+     *
+     * @return bool
+     */
     protected function passes(CommonLogEntry $entry)
     {
-        $entryTime = new \DateTime($entry->time);
-
-        if (null !== $this->startDate && $entryTime < $this->startDate) {
+        if (null !== $this->startTime && $entry->time < $this->startTime) {
             return false;
         }
-        if (null !== $this->endDate && $entryTime > $this->endDate) {
+        if (null !== $this->endTime && $entry->time > $this->endTime) {
             return false;
         }
 

@@ -20,23 +20,25 @@ class LogProcessor implements LogProcessorInterface
         $this->parser = $parser;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     final public function process()
     {
-        if ($line = $this->reader->read()) {
+        while ($line = $this->reader->read()) {
             $entry = $this->parser->parse($line);
 
+            // Checks whether entry should be filtered out. Override ::passes() method to filter out entries
             if (true === $this->passes($entry)) {
                 return $entry;
-            } else {
-                return $this->process();
             }
-        } else {
-            return null;
         }
+
+        return null;
     }
 
     /**
-     * If method does not true, this entry will be skipped.
+     * If method does not return true, this entry will be skipped.
      *
      * @param $entry
      *
