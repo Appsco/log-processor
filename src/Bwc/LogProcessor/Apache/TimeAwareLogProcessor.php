@@ -37,7 +37,7 @@ class TimeAwareLogProcessor extends LogProcessor
      *
      * @return bool
      */
-    protected function passes(CommonLogEntry $entry)
+    protected function passes($entry)
     {
         if (null !== $this->startTime && $entry->time < $this->startTime) {
             return false;
