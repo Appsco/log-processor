@@ -32,7 +32,7 @@ class TimeAwareLogProcessorTest extends \PHPUnit_Framework_TestCase
 
         $this->logParserMock->expects($this->once())->method('parse')
             ->will($this->returnValue($entry = new \Bwc\LogProcessor\Apache\CommonLogEntry()));
-        $entry->time = (new DateTime())->format('Y-m-d H:i:s');
+        $entry->time = (new DateTime())->getTimestamp();
 
         $result = $logProcessor->process();
 
@@ -55,7 +55,7 @@ class TimeAwareLogProcessorTest extends \PHPUnit_Framework_TestCase
 
         $this->logParserMock->expects($this->once())->method('parse')
             ->will($this->returnValue($entry = new \Bwc\LogProcessor\Apache\CommonLogEntry()));
-        $entry->time = (new DateTime())->add(new DateInterval('P2D'))->format('Y-m-d H:i:s');
+        $entry->time = (new DateTime())->add(new DateInterval('P2D'))->getTimestamp();
 
         $result = $logProcessor->process();
 
@@ -82,7 +82,7 @@ class TimeAwareLogProcessorTest extends \PHPUnit_Framework_TestCase
 
         $this->logParserMock->expects($this->once())->method('parse')
             ->will($this->returnValue($entry = new \Bwc\LogProcessor\Apache\CommonLogEntry()));
-        $entry->time = (new DateTime())->add(new DateInterval('P48D'))->format('Y-m-d H:i:s');
+        $entry->time = (new DateTime())->add(new DateInterval('P48D'))->getTimestamp();
 
         $result = $logProcessor->process();
 
